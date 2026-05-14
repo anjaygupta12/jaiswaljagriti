@@ -230,7 +230,6 @@
                         </div>
 
                         <div class="card-body p-4">
-
                             <!-- Latest Magazines -->
                             <h3 class="section-title mb-4">
                                 E-Book
