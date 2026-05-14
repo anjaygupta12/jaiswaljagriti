@@ -1,0 +1,24 @@
+p.form-row.full_width{
+   width: 100%;
+    clear: both;
+}
+p.form-row.half_width{
+   width: 48%;
+   margin-right: 2%;
+   float: left;
+}
+#login p.form-row > span {
+    display: block;
+}
+#login p.form-row > span select,
+#login p.form-row > span input[type="time"],
+#login p.form-row > span input[type="date"],
+.login input[type="number"] {
+    width: 100%;
+}
+#login form p.form-row {
+    margin-bottom: 10px;
+}
+#login form#registerform{
+    width: 302px;
+}
