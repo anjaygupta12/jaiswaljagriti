@@ -537,27 +537,18 @@
     </style>
     <!-- ALL CSS FILES -->
 
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
-
-<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css">
 
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
-<link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+<!-- Removed missing responsive.css -->
 
 <link rel="stylesheet" href="{{ asset('assets/css/frontend.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/frontend.min.css') }}">
@@ -590,19 +581,10 @@
 <link rel="stylesheet" href="{{ asset('assets/css/brands.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/solid.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/widget-blockquote.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/widget-mega-menu.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/widget-nav-menu.min.css') }}">
+<!-- Removed missing widget styles -->
 <link rel="stylesheet" href="{{ asset('assets/css/frontend_4404d0.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/rtsb-fonts.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/swiper.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/default.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/elementor.css') }}">
+<!-- Theme Style -->
 <link rel="stylesheet" href="{{ asset('assets/css/quick-view.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/wishlist.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/compare.css') }}">
@@ -619,7 +601,7 @@
 <!-- Google Fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400,500,600,700,400&display=fallback">
-
+    @stack('css')
 </head>
 
 <body>
@@ -635,24 +617,9 @@
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/select2.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/wow.min.js') }}"></script>
-
-
-
-<script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         // Initialize Swiper
         const swiper = new Swiper('.heroSwiper', {
@@ -682,6 +649,7 @@
         });
     </script>
 
+    @stack('js')
 </body>
 
 </html>

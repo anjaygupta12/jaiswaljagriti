@@ -16,6 +16,11 @@ class Magazine extends Model
         return $this->belongsTo(Plan::class);
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_magazine');
+    }
+
     /** True when the magazine is free (no plan or plan price is 0) */
     public function isFree(): bool
     {

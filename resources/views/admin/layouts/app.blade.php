@@ -108,12 +108,12 @@
 
                     <!-- CMS Section -->
                     <li class="nav-item">
-                        <a href="#cmsMenu" class="nav-link d-flex justify-content-between align-items-center {{ request()->routeIs('admin.banners.*') || request()->routeIs('admin.magazines.*') ? 'active' : '' }}"
-                            data-toggle="collapse" aria-expanded="{{ request()->routeIs('admin.banners.*') || request()->routeIs('admin.magazines.*') ? 'true' : 'false' }}">
+                        <a href="#cmsMenu" class="nav-link d-flex justify-content-between align-items-center {{ request()->routeIs('admin.banners.*') || request()->routeIs('admin.magazines.*') || request()->routeIs('admin.job-*') || request()->routeIs('admin.events.*') ? 'active' : '' }}"
+                            data-toggle="collapse" aria-expanded="{{ request()->routeIs('admin.banners.*') || request()->routeIs('admin.magazines.*') || request()->routeIs('admin.job-*') || request()->routeIs('admin.events.*') ? 'true' : 'false' }}">
                             <span><i class="fas fa-layer-group mr-2"></i> CMS</span>
                             <i class="fas fa-angle-down cms-arrow" style="transition: transform 0.2s;"></i>
                         </a>
-                        <ul class="collapse nav flex-column pl-3 {{ request()->routeIs('admin.banners.*') || request()->routeIs('admin.magazines.*') ? 'show' : '' }}" id="cmsMenu">
+                        <ul class="collapse nav flex-column pl-3 {{ request()->routeIs('admin.banners.*') || request()->routeIs('admin.magazines.*') || request()->routeIs('admin.job-*') || request()->routeIs('admin.events.*') ? 'show' : '' }}" id="cmsMenu">
                             <li class="nav-item">
                                 <a href="{{ route('admin.banners.index') }}" class="nav-link py-2 {{ request()->routeIs('admin.banners.*') ? 'active' : '' }}" style="font-size: 14px;">
                                     <i class="fas fa-images mr-2"></i> Home Banners
@@ -122,6 +122,31 @@
                             <li class="nav-item">
                                 <a href="{{ route('admin.magazines.index') }}" class="nav-link py-2 {{ request()->routeIs('admin.magazines.*') ? 'active' : '' }}" style="font-size: 14px;">
                                     <i class="fas fa-book mr-2"></i> Magazines
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.job-categories.index') }}" class="nav-link py-2 {{ request()->routeIs('admin.job-categories.*') ? 'active' : '' }}" style="font-size: 14px;">
+                                    <i class="fas fa-list mr-2"></i> Job Categories
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.job-listings.index') }}" class="nav-link py-2 {{ request()->routeIs('admin.job-listings.*') ? 'active' : '' }}" style="font-size: 14px;">
+                                    <i class="fas fa-briefcase mr-2"></i> Job Listings
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.event-categories.index') }}" class="nav-link py-2 {{ request()->routeIs('admin.event-categories.*') ? 'active' : '' }}" style="font-size: 14px;">
+                                    <i class="fas fa-tags mr-2"></i> Event Categories
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.events.index') }}" class="nav-link py-2 {{ request()->routeIs('admin.events.*') ? 'active' : '' }}" style="font-size: 14px;">
+                                    <i class="fas fa-calendar-star mr-2"></i> Upcoming Events
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.comments.index') }}" class="nav-link py-2 {{ request()->routeIs('admin.comments.*') ? 'active' : '' }}" style="font-size: 14px;">
+                                    <i class="fas fa-comments mr-2"></i> Manage Comments
                                 </a>
                             </li>
                         </ul>

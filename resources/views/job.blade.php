@@ -207,127 +207,52 @@
 
         <!-- Top Cards -->
         <div class="row g-4 mb-5">
-
-            <div class="col-lg-3 col-md-6">
-                <div class="job-card">
-                    <h4>
-                        <a href="#">
-                            UP Police SI Recruitment 2025
-                        </a>
-                    </h4>
+            @forelse($featuredJobs as $fJob)
+                <div class="col-lg-3 col-md-6">
+                    <div class="job-card">
+                        <h4>
+                            <a href="{{ $fJob->link ?: '#' }}" {{ $fJob->link ? 'target="_blank"' : '' }}>
+                                {{ $fJob->title }}
+                            </a>
+                        </h4>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="job-card">
-                    <h4>
-                        <a href="#">
-                            BSF HC RO / RM Recruitment 2025
-                        </a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="job-card">
-                    <h4>
-                        <a href="#">
-                            IBPS Clerk 15th Recruitment 2025
-                        </a>
-                    </h4>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="job-card">
-                    <h4>
-                        <a href="#">
-                            SBI Clerk Recruitment 2025
-                        </a>
-                    </h4>
-                </div>
-            </div>
-
+            @empty
+                <div class="col-12 text-center text-muted">No featured jobs at the moment.</div>
+            @endforelse
         </div>
 
         <!-- Categories -->
         <div class="row g-4">
+            @foreach($categories as $category)
+                <div class="col-lg-4">
+                    <div class="category-box">
 
-            <!-- Government Jobs -->
-            <div class="col-lg-4">
-                <div class="category-box">
+                        <div class="category-title">
+                            <h3>
+                                <a href="#">{{ $category->name }}</a>
+                            </h3>
+                        </div>
 
-                    <div class="category-title">
-                        <h3>
-                            <a href="#">Government Jobs</a>
-                        </h3>
+                        <ul class="job-list">
+                            @forelse($category->listings as $job)
+                                <li>
+                                    <a href="{{ $job->link ?: '#' }}" {{ $job->link ? 'target="_blank"' : '' }}>
+                                        {{ $job->title }}
+                                    </a>
+                                </li>
+                            @empty
+                                <li class="text-muted small">No jobs in this category.</li>
+                            @endforelse
+                        </ul>
+
+                        <a href="#" class="job-btn">
+                            More Jobs
+                        </a>
+
                     </div>
-
-                    <ul class="job-list">
-                        <li><a href="#">MP ESB Middle and Primary Teacher Result 2025</a></li>
-                        <li><a href="#">UCO Bank SO Final Result 2025</a></li>
-                        <li><a href="#">AIIMS CRE Group B, C Result 2025</a></li>
-                        <li><a href="#">PFRDA Assistant Manager Phase-I Result 2025</a></li>
-                        <li><a href="#">BPSSC Bihar Police Enforcement SI Result</a></li>
-                    </ul>
-
-                    <a href="#" class="job-btn">
-                        More Jobs
-                    </a>
-
                 </div>
-            </div>
-
-            <!-- IT Jobs -->
-            <div class="col-lg-4">
-                <div class="category-box">
-
-                    <div class="category-title">
-                        <h3>
-                            <a href="#">IT & Software</a>
-                        </h3>
-                    </div>
-
-                    <ul class="job-list">
-                        <li><a href="#">Laravel Developer Required</a></li>
-                        <li><a href="#">React JS Frontend Developer</a></li>
-                        <li><a href="#">Node JS API Developer</a></li>
-                        <li><a href="#">PHP Full Stack Developer</a></li>
-                        <li><a href="#">Vue JS Developer Hiring</a></li>
-                    </ul>
-
-                    <a href="#" class="job-btn">
-                        More Jobs
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- Banking -->
-            <div class="col-lg-4">
-                <div class="category-box">
-
-                    <div class="category-title">
-                        <h3>
-                            <a href="#">Banking & Finance</a>
-                        </h3>
-                    </div>
-
-                    <ul class="job-list">
-                        <li><a href="#">Bank PO Recruitment 2025</a></li>
-                        <li><a href="#">SBI Clerk Online Form</a></li>
-                        <li><a href="#">RBI Assistant Recruitment</a></li>
-                        <li><a href="#">Finance Executive Hiring</a></li>
-                        <li><a href="#">Insurance Advisor Vacancy</a></li>
-                    </ul>
-
-                    <a href="#" class="job-btn">
-                        More Jobs
-                    </a>
-
-                </div>
-            </div>
-
+            @endforeach
         </div>
 
     </div>
