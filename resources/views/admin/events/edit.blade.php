@@ -100,6 +100,38 @@
                         @enderror
                     </div>
 
+
+
+                    <div class="form-group">
+                        <label>Gallery Images <small class="text-muted">(Hold CTRL/CMD to select multiple images)</small></label>
+                        <input type="file" name="gallery[]" class="form-control-file @error('gallery.*') is-invalid @enderror" multiple accept="image/*">
+                        @error('gallery.*')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+
+                        @if($event->images->count() > 0)
+                            <h6 class="mb-2 mt-3">Existing Gallery:</h6>
+                            <div class="row mb-3">
+                                @foreach($event->images as $image)
+                                    <div class="col-4 mb-2 gallery-image-item" id="image-{{ $image->id }}">
+                                        <div class="position-relative">
+                                            <img src="{{ asset($image->image_path) }}" class="img-thumbnail" style="height: 80px; width: 100%; object-fit: cover;">
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: -5px; right: -5px; padding: 2px 5px;" onclick="deleteGalleryImage({{ $image->id }})">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                            <div class="mt-1 d-flex justify-content-center">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="showGallery-{{$image->id}}" name="show_in_gallery[{{ $image->id }}]" value="1" {{ $image->show_in_gallery ? 'checked' : '' }}>
+                                                    <label class="custom-control-label" style="font-size: 11px;" for="showGallery-{{$image->id}}">Show in Gallery</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="form-group">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" {{ $event->is_active ? 'checked' : '' }}>
@@ -133,5 +165,27 @@
     $(document).ready(function() {
         $('.select2').select2();
     });
+
+    function deleteGalleryImage(id) {
+        if (confirm('Are you sure you want to delete this image?')) {
+            $.ajax({
+                url: "{{ url('admin/events/delete-image') }}/" + id,
+                type: 'DELETE',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#image-' + id).fadeOut(300, function() {
+                            $(this).remove();
+                        });
+                    }
+                },
+                error: function() {
+                    alert('Error deleting image.');
+                }
+            });
+        }
+    }
 </script>
 @endpush

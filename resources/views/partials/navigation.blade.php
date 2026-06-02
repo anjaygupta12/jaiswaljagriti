@@ -37,8 +37,8 @@
                         <li><a href="{{ route('advertisement-subscription') }}">Advertisement Subscription</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Media Gallery</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{{route('gallery')}}">Media Gallery</a></li>
+                <li><a href="{{ route('contact') }}">Contact</a></li>
             </ul>
         </div>
     </div>

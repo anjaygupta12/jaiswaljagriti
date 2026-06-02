@@ -211,8 +211,16 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="job-card">
                         <h4>
-                            <a href="{{ $fJob->link ?: '#' }}" {{ $fJob->link ? 'target="_blank"' : '' }}>
+                            <a href="{{ $fJob->isInternal() ? route('job.show', $fJob->id) : ($fJob->link ?: '#') }}" {{ !$fJob->isInternal() && $fJob->link ? 'target="_blank"' : '' }}>
                                 {{ $fJob->title }}
+                                <br>
+                                @if($fJob->isInternal())
+                                    <span class="badge badge-light mt-2 text-info font-weight-normal" style="font-size: 11px; border: 1px solid #d1ecf1;"><i class="fas fa-file-alt mr-1"></i> View Details</span>
+                                @else
+                                    @if($fJob->link)
+                                        <span class="badge badge-light mt-2 text-secondary font-weight-normal" style="font-size: 11px; border: 1px solid #e2e3e5;"><i class="fas fa-external-link-alt mr-1"></i> Apply Now</span>
+                                    @endif
+                                @endif
                             </a>
                         </h4>
                     </div>
@@ -237,8 +245,15 @@
                         <ul class="job-list">
                             @forelse($category->listings as $job)
                                 <li>
-                                    <a href="{{ $job->link ?: '#' }}" {{ $job->link ? 'target="_blank"' : '' }}>
+                                    <a href="{{ $job->isInternal() ? route('job.show', $job->id) : ($job->link ?: '#') }}" {{ !$job->isInternal() && $job->link ? 'target="_blank"' : '' }}>
                                         {{ $job->title }}
+                                        @if($job->isInternal())
+                                            <span class="badge badge-light ml-1 text-info font-weight-normal" style="font-size: 10px; border: 1px solid #d1ecf1;"><i class="fas fa-file-alt mr-1"></i> Details</span>
+                                        @else
+                                            @if($job->link)
+                                                <span class="badge badge-light ml-1 text-secondary font-weight-normal" style="font-size: 10px; border: 1px solid #e2e3e5;"><i class="fas fa-external-link-alt mr-1"></i> Apply</span>
+                                            @endif
+                                        @endif
                                     </a>
                                 </li>
                             @empty

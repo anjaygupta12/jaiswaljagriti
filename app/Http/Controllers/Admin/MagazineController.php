@@ -18,8 +18,7 @@ class MagazineController extends Controller
 
     public function create()
     {
-        $plans = Plan::where('status', 1)->orderBy('price')->get();
-        return view('admin.magazines.create', compact('plans'));
+        return view('admin.magazines.create');
     }
 
     public function store(Request $request)
@@ -30,7 +29,6 @@ class MagazineController extends Controller
             'description'   => 'nullable|string',
             'thumbnail'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'pdf_file'      => 'required|mimes:pdf|max:20480',
-            'plan_id'       => 'nullable|exists:plans,id',
         ]);
 
         $data = [
@@ -38,7 +36,6 @@ class MagazineController extends Controller
             'magazine_date' => $request->magazine_date,
             'slug'          => Str::slug($request->title),
             'description'   => $request->description,
-            'plan_id'       => $request->plan_id ?: null,
             'is_active'     => $request->has('is_active'),
         ];
 
@@ -70,8 +67,7 @@ class MagazineController extends Controller
 
     public function edit(Magazine $magazine)
     {
-        $plans = Plan::where('status', 1)->orderBy('price')->get();
-        return view('admin.magazines.edit', compact('magazine', 'plans'));
+        return view('admin.magazines.edit', compact('magazine'));
     }
 
     public function update(Request $request, Magazine $magazine)
@@ -82,14 +78,12 @@ class MagazineController extends Controller
             'description'   => 'nullable|string',
             'thumbnail'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'pdf_file'      => 'nullable|mimes:pdf|max:20480',
-            'plan_id'       => 'nullable|exists:plans,id',
         ]);
 
         $data = [
             'title'         => $request->title,
             'magazine_date' => $request->magazine_date,
             'description'   => $request->description,
-            'plan_id'       => $request->plan_id ?: null,
             'is_active'     => $request->has('is_active'),
         ];
 

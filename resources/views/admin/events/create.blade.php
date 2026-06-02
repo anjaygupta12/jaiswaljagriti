@@ -89,6 +89,16 @@
                         @enderror
                     </div>
 
+
+
+                    <div class="form-group">
+                        <label>Gallery Images <small class="text-muted">(Hold CTRL/CMD to select multiple images)</small></label>
+                        <input type="file" name="gallery[]" class="form-control-file @error('gallery.*') is-invalid @enderror" multiple accept="image/*">
+                        @error('gallery.*')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="form-group">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" checked>
@@ -121,6 +131,7 @@
 <script>
     $(document).ready(function() {
         $('.select2').select2();
+
     });
 </script>
 @endpush

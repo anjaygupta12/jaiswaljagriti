@@ -5,7 +5,7 @@
 @section('content')
     <style>
         .upcoming-events-section {
-            background-image: url('https://new.jaiswaljagriti.com/wp-content/uploads/2025/08/imgi_17_sj1.jpg');
+            background-image: url('{{ asset($settings['events_banner']) }}');
             background-position: center center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -56,8 +56,8 @@
                             data-widget_type="heading.default">
 
                             <div class="elementor-widget-container">
-                                <h1 class="elementor-heading-title elementor-size-default">
-                                    Upcoming Events
+                                <h1 class="elementor-heading-title elementor-size-default" style="color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                                    {{ $settings['events_banner_title'] }}
                                 </h1>
                             </div>
 

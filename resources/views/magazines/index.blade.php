@@ -22,13 +22,19 @@
         <div class="row">
             @foreach($magazines as $mag)
             @php
-                $isFree = $mag->isFree();
-                $hasAccess = $isFree;
-                if (!$isFree && auth()->check()) {
-                    $hasAccess = auth()->user()->subscriptions()
+                $oldFromDate = \App\Models\Setting::getVal('magazine_old_from_date');
+                $isOld = $oldFromDate && $mag->magazine_date && ($mag->magazine_date < $oldFromDate);
+                
+                $hasAccess = false;
+                if ($isOld) {
+                    $hasAccess = auth()->check();
+                } else {
+                    $hasAccess = auth()->check() && (auth()->user()->is_admin == 1 || auth()->user()->subscriptions()
                         ->where('status', 'approved')
-                        ->where('plan_id', $mag->plan_id)
-                        ->exists();
+                        ->whereHas('plan', function($q) {
+                            $q->where('type', 'patrika');
+                        })
+                        ->exists());
                 }
             @endphp
             <div class="col-lg-3 col-md-6 mb-4">
@@ -58,12 +64,18 @@
                             <div style="position:absolute; top:10px; right:10px;">
                                 @if($hasAccess)
                                     <span class="badge badge-success" style="font-size:11px; padding: 5px 10px; border-radius:20px;">
-                                        <i class="fas fa-unlock mr-1"></i> Free
+                                        <i class="fas fa-unlock mr-1"></i> Read Now
                                     </span>
                                 @else
-                                    <span class="badge badge-warning text-dark" style="font-size:11px; padding: 5px 10px; border-radius:20px;">
-                                        <i class="fas fa-lock mr-1"></i> Premium
-                                    </span>
+                                    @if($isOld)
+                                        <span class="badge badge-info" style="font-size:11px; padding: 5px 10px; border-radius:20px;">
+                                            <i class="fas fa-sign-in-alt mr-1"></i> Login Required
+                                        </span>
+                                    @else
+                                        <span class="badge badge-warning text-dark" style="font-size:11px; padding: 5px 10px; border-radius:20px;">
+                                            <i class="fas fa-lock mr-1"></i> Premium
+                                        </span>
+                                    @endif
                                 @endif
                             </div>
 
@@ -73,8 +85,13 @@
                                     <i class="fas fa-file-pdf fa-3x text-white"></i>
                                 @else
                                     <div class="text-center text-white">
-                                        <i class="fas fa-lock fa-2x mb-2"></i>
-                                        <p class="mb-0 small font-weight-bold">Subscribe to Read</p>
+                                        @if($isOld)
+                                            <i class="fas fa-sign-in-alt fa-2x mb-2"></i>
+                                            <p class="mb-0 small font-weight-bold">Login to Read</p>
+                                        @else
+                                            <i class="fas fa-lock fa-2x mb-2"></i>
+                                            <p class="mb-0 small font-weight-bold">Subscribe to Read</p>
+                                        @endif
                                     </div>
                                 @endif
                             </div>

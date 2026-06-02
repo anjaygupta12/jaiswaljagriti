@@ -19,6 +19,7 @@
                         <th>#</th>
                         <th>Job Title</th>
                         <th>Category</th>
+                        <th>Type</th>
                         <th>Featured</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -30,11 +31,22 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             <strong>{{ $job->title }}</strong>
-                            @if($job->link)
-                                <br><small><a href="{{ $job->link }}" target="_blank" class="text-info"><i class="fas fa-external-link-alt"></i> View Link</a></small>
+                            @if($job->link_type === 'external')
+                                @if($job->link)
+                                    <br><small><a href="{{ $job->link }}" target="_blank" class="text-info"><i class="fas fa-external-link-alt"></i> View Link</a></small>
+                                @endif
+                            @else
+                                <br><small class="text-muted"><i class="fas fa-file-alt"></i> Internal Description</small>
                             @endif
                         </td>
                         <td><span class="badge badge-outline-secondary">{{ $job->category->name }}</span></td>
+                        <td>
+                            @if($job->link_type === 'internal')
+                                <span class="badge badge-info text-white">Internal</span>
+                            @else
+                                <span class="badge badge-secondary">External</span>
+                            @endif
+                        </td>
                         <td>
                             @if($job->is_featured)
                                 <span class="badge badge-warning text-dark"><i class="fas fa-star mr-1"></i> Top Card</span>
@@ -64,7 +76,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center py-4 text-muted">No jobs found.</td>
+                        <td colspan="7" class="text-center py-4 text-muted">No jobs found.</td>
                     </tr>
                     @endforelse
                 </tbody>

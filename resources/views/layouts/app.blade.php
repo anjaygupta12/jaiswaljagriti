@@ -578,9 +578,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/subscription.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/chaty-front.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/widget-social-icons.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/brands.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/solid.css') }}">
+
 <!-- Removed missing widget styles -->
 <link rel="stylesheet" href="{{ asset('assets/css/frontend_4404d0.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/rtsb-fonts.css') }}">
@@ -589,9 +587,6 @@
 <link rel="stylesheet" href="{{ asset('assets/css/wishlist.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/compare.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/regular.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/solid.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/photoswipe.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/default-skin.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/general.min.css') }}">

@@ -90,6 +90,7 @@ section {
 
 .btn-primary:hover {
     background: #c7002b;
+    color: #ffffff !important;
     transform: translateY(-2px);
 }
 
@@ -107,7 +108,7 @@ section {
 
 .btn-outline:hover {
     background: #F80136;
-    color: white;
+    color: #ffffff !important;
 }
 
 /* Navigation */

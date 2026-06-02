@@ -32,6 +32,10 @@
                         <i class="fas fa-clock"></i> Approval Pending
                     </button>
                 @endif
+            @elseif(auth()->check() && isset($highestSubscribedPrice) && $highestSubscribedPrice >= $plan->price)
+                <button class="btn btn-success btn-block rounded-pill" style="padding: 12px 24px; cursor: not-allowed;" disabled>
+                    <i class="fas fa-check-circle"></i> Subscribed
+                </button>
             @else
                 <a href="{{ route('subscribe', $plan->id) }}" class="btn btn-primary btn-block rounded-pill" style="padding: 12px 24px;">
                     Subscribe Now

@@ -5,8 +5,11 @@
 
 @section('content')
 <div class="card shadow border-0">
-    <div class="card-header bg-white">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0 font-weight-bold">Manage Requests</h5>
+        <a href="{{ route('admin.subscriptions.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus mr-1"></i> Add Subscription
+        </a>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">

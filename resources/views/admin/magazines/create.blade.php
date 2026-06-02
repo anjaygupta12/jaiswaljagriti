@@ -17,36 +17,16 @@
             @csrf
 
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-8">
                     <div class="form-group">
                         <label>Title <span class="text-danger">*</span></label>
                         <input type="text" name="title" class="form-control" value="{{ old('title') }}" required>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Issue/Date <span class="text-danger">*</span></label>
                         <input type="date" name="magazine_date" class="form-control" value="{{ old('magazine_date') }}" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Access / Plan <span class="text-danger">*</span></label>
-                        <select name="plan_id" class="form-control" required>
-                            <option value="">-- Free (Available to Everyone) --</option>
-                            @foreach($plans as $plan)
-                                @if($plan->price == 0)
-                                    <option value="{{ $plan->id }}" {{ old('plan_id') == $plan->id ? 'selected' : '' }}>
-                                        {{ $plan->name }} (Free — {{ ucfirst($plan->type) }})
-                                    </option>
-                                @else
-                                    <option value="{{ $plan->id }}" {{ old('plan_id') == $plan->id ? 'selected' : '' }}>
-                                        {{ $plan->name }} — ₹{{ number_format($plan->price, 0) }}/{{ ucfirst($plan->billing_cycle) }} ({{ ucfirst($plan->type) }})
-                                    </option>
-                                @endif
-                            @endforeach
-                        </select>
-                        <small class="text-muted">Select a paid plan to restrict access to subscribers only. Leave blank for free access.</small>
                     </div>
                 </div>
             </div>

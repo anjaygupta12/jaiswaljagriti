@@ -30,68 +30,49 @@
     <section>
         <div class="container-custom">
             <div class="section-title">
-                <h2>Welcome to Jaiswal Jagriti Family</h2>
+                <h2>{{ $settings['home_welcome_title'] ?? 'Welcome to Jaiswal Jagriti Family' }}</h2>
             </div>
             <div class="category-grid">
-                <a href="#" class="category-card">
-                    <img src="{{ asset('assets/images/IMG-20250704-WA0010.webp') }}" alt="Matrimony">
-                    <p>Matrimony →</p>
-                </a>
-
-                <a href="#" class="category-card">
-                    <img src="{{ asset('assets/images/3688609.png') }}" alt="Jobs">
-                    <p>Jobs & Careers →</p>
-                </a>
-
-                <a href="#" class="category-card">
-                    <img src="{{ asset('assets/images/download.jpeg') }}" alt="Events">
-                    <p>Events →</p>
-                </a>
-
-                <a href="#" class="category-card">
-                    <img src="{{ asset('assets/images/Screenshot-2025-07-09-171638.png') }}" alt="Magazine">
-                    <p>Magazine →</p>
-                </a>
-
-                <a href="#" class="category-card">
-                    <img src="{{ asset('assets/images/Begin-Spiritual-Journey-with-a-Chardham-Yatra-from-Bangalore.webp') }}"
-                        alt="Spiritual">
-                    <p>Spiritual Yatra →</p>
-                </a>
-
-                <a href="#" class="category-card">
-                    <img src="{{ asset('assets/images/images-removebg-preview.png') }}" alt="Education">
-                    <p>Education →</p>
-                </a>
+                @for($i = 1; $i <= 6; $i++)
+                    @if(!empty($settings["home_cat_{$i}_title"]))
+                        <a href="{{ $settings["home_cat_{$i}_link"] }}" class="category-card">
+                            @if(!empty($settings["home_cat_{$i}_image"]))
+                                <img src="{{ asset($settings["home_cat_{$i}_image"]) }}" alt="{{ $settings["home_cat_{$i}_title"] }}">
+                            @endif
+                            <p>{!! $settings["home_cat_{$i}_title"] !!} →</p>
+                        </a>
+                    @endif
+                @endfor
             </div>
 
             <div class="info-row" style="margin-top: 60px;">
                 <div class="info-text">
-                    <h3 style="font-size: 28px; margin-bottom: 20px;">Fostering Culture & Unity</h3>
-                    <p style="line-height: 1.6;">The <em>Jaiswal Jagriti Family</em> is a socially driven, culturally
-                        rich community that has been continuously working towards the upliftment and unity of the
-                        Jaiswal society. Founded on principles of awareness, progress, and collective identity, the
-                        family operates through its flagship initiative, the <em>'Jaiswal Jagriti'</em>
-                        magazine—launched in 1994—which serves as a voice for the community. Through regular
-                        publications, cultural events, youth engagement, women empowerment, and social responsibility
-                        programs, the Jaiswal Jagriti Family has emerged as a unifying force, connecting Jaiswals across
-                        regions and generations with pride, purpose, and progress.</p>
-                    <a href="#" class="btn-primary" style="margin-top: 24px; display: inline-block;">Know More <i
-                            class="fas fa-arrow-right"></i></a>
+                    <h3 style="font-size: 28px; margin-bottom: 20px;">{{ $settings['home_welcome_info_title'] ?? 'Fostering Culture & Unity' }}</h3>
+                    {!! $settings['home_welcome_info_text'] ?? '<p>Default text.</p>' !!}
+                    <a href="{{ $settings['home_welcome_btn_link'] ?? '#' }}" class="btn-primary" style="margin-top: 24px; display: inline-block;">
+                        {{ $settings['home_welcome_btn_text'] ?? 'Know More' }} <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 <div class="info-img">
-                    <img src="{{ asset('assets/images/sj4.jpg') }}" alt="Community Event">
+                    <img src="{{ asset($settings['home_welcome_image'] ?? 'assets/images/sj4.jpg') }}" alt="Community Event">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Amazon Advertisement Section -->
+    <!-- Advertisement Section -->
     <div class="container-custom amazon-ad">
-        <a href="https://www.amazon.in/" target="_blank">
-            <img src="{{ asset('assets/images/Screenshot-2025-07-09-165446.png') }}" alt="Amazon Advertisement"
-                class="elementor-animation-shrink">
-        </a>
+        @if(isset($homeAd) && $homeAd)
+            <a href="{{ $homeAd->link ?? '#' }}" target="_blank">
+                <img src="{{ asset($homeAd->image_path) }}" alt="Advertisement"
+                    class="elementor-animation-shrink" style="width: 100%; max-width: 921px; height: auto; display: block; margin: 0 auto;">
+            </a>
+        @else
+            <a href="https://www.amazon.in/" target="_blank">
+                <img src="{{ asset('assets/images/Screenshot-2025-07-09-165446.png') }}" alt="Amazon Advertisement"
+                    class="elementor-animation-shrink" style="display: block; margin: 0 auto;">
+            </a>
+        @endif
     </div>
 
     <!-- Magazine Section with Ticker & Subscription -->
@@ -116,26 +97,16 @@
                                     <div class="magazine-text">
 
                                         <h3 class="fw-bold mb-3">
-                                            Jaiswal Jagriti Magazine
+                                            {{ $settings['home_magazine_title'] }}
                                         </h3>
 
-                                        <p class="text-muted">
-                                            It was only natural that to give shape to our objectives,
-                                            we needed a mouthpiece. Hence, in April 1994,
-                                            the quarterly magazine titled
-                                            <em>‘Jaiswal Jagriti’</em> was launched at a grand
-                                            cultural event held in the National Museum in Delhi.
-                                        </p>
+                                        {!! $settings['home_magazine_info_text'] !!}
 
-                                        <p class="text-muted">
-                                            Since then, this magazine has been published regularly
-                                            and continues to gain popularity with social responsibility
-                                            and awareness.
-                                        </p>
-
-                                        <a href="#" class="btn btn-primary rounded-pill px-4">
-                                            Subscribe Now
+                                        @if(!empty($settings['home_magazine_btn_text']))
+                                        <a href="{{ $settings['home_magazine_btn_link'] }}" class="btn btn-primary rounded-pill px-4 mt-3">
+                                            {{ $settings['home_magazine_btn_text'] }}
                                         </a>
+                                        @endif
 
                                     </div>
 
@@ -146,7 +117,7 @@
 
                                     <div class="magazine-image text-center">
 
-                                        <img src="{{ asset('assets/images/Screenshot-2025-07-09-171638.png') }}"
+                                        <img src="{{ asset($settings['home_magazine_image']) }}"
                                             alt="Magazine Cover" class="img-fluid rounded-4 shadow-sm">
 
                                     </div>
@@ -317,10 +288,15 @@
 
                             <!-- Advertisement -->
                             <div class="amazon-ad text-center">
-
-                                <img src="{{ asset('assets/images/39912615.jpg') }}" alt="Advertisement"
-                                    class="img-fluid rounded-4 shadow-sm">
-
+                                @if(isset($sidebarAd) && $sidebarAd)
+                                    <a href="{{ $sidebarAd->link ?? '#' }}" target="_blank">
+                                        <img src="{{ asset($sidebarAd->image_path) }}" alt="Advertisement"
+                                            class="img-fluid rounded-4 shadow-sm" style="width: 100%; max-width: 225px; height: auto;">
+                                    </a>
+                                @else
+                                    <img src="{{ asset('assets/images/39912615.jpg') }}" alt="Advertisement"
+                                        class="img-fluid rounded-4 shadow-sm">
+                                @endif
                             </div>
 
                         </div>
@@ -357,34 +333,33 @@
     </section>
 
     <!-- Spiritual Yatra -->
-    <section style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <section style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 60px 0;">
         <div class="container-custom">
             <div class="section-title">
-                <h2 style="color: white;">SPIRITUAL YATRA</h2>
+                <h2 style="color: black;">SPIRITUAL YATRA</h2>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
-                <div class="card-mini">
-                    <img src="{{ asset('assets/images/Govind-Dev-Ji-Temple-Jaipur-400x300.jpg') }}"
-                        style="width:100%; border-radius: 12px; height: 180px; object-fit:cover;">
-                    <h4 style="margin: 12px 0;">A Journey Govind Dev Ji, Jaipur</h4><a href="#">Read More →</a>
+            
+            @if($spiritualYatras->count() > 0)
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                    @foreach($spiritualYatras as $yatra)
+                        <div class="card-mini" style="background:#fff; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05); padding-bottom:15px; overflow:hidden;">
+                            <img src="{{ $yatra->thumbnail ? asset($yatra->thumbnail) : asset('assets/images/placeholder.jpg') }}"
+                                style="width:100%; height: 180px; object-fit:cover;" alt="{{ $yatra->title }}">
+                            <div style="padding: 15px;">
+                                <h4 style="margin: 0 0 10px 0; color:#333;">{{ $yatra->title }}</h4>
+                                <a href="{{ route('spiritual-yatras.show', $yatra->slug) }}" style="color:#f80136; font-weight:bold; text-decoration:none;">Read More →</a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="card-mini"><img src="{{ asset('assets/images/image-3-1024x768-1-e1755594836425-400x300') }}"
-                        style="width:100%; border-radius: 12px; height: 180px; object-fit:cover;">
-                    <h4>Sawariya Seth Nandir, Chittorgarh</h4><a href="#">Read More →</a>
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="{{ route('spiritual-yatras.index') }}" class="btn-primary">Show More</a>
                 </div>
-                <div class="card-mini">
-                    <img src="{{ asset('assets/images/Untitled-design-33-400x300.png') }}"
-                        style="width:100%; border-radius: 12px; height: 180px; object-fit:cover;">
-                    <h4>A Journey To Ayodhya Ram Mandir</h4><a href="#">Read More →</a>
+            @else
+                <div class="text-center py-5">
+                    <p style="color: rgba(255,255,255,0.7);">No spiritual yatras found at the moment.</p>
                 </div>
-                <div class="card-mini"><img
-                        src="{{ asset('assets/images/14_11_2022-khatushyam-e1755594120876-400x300.jpg') }}"
-                        style="width:100%; border-radius: 12px; height: 180px; object-fit:cover;">
-                    <h4>Shree Khatu Shyam Mandir, Sikar</h4><a href="#">Read More →</a>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 40px;"><a href="#" class="btn-primary">Show More</a>
-            </div>
+            @endif
         </div>
     </section>
 
@@ -395,8 +370,16 @@
                 <h2>UPCOMING EVENTS</h2>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px;">
-                <div class="card-mini"><img
-                        src="{{ asset('assets/images/b03dc7d5-16a5-42ac-a693-115b7676d08d-e1755596675672-400x300.jpg') }}"
+                @forelse($events as $event)
+                <div class="card-mini">
+                    <img src="{{ $event->thumbnail ? asset($event->thumbnail) : asset('assets/images/placeholder.jpg') }}"
+                        style="width:100%; border-radius: 12px; height: 180px; object-fit:cover;" alt="{{ $event->title }}">
+                    <h4>{{ $event->title }}</h4>
+                    <a href="{{ route('events-details', $event->slug) }}">Read More</a>
+                </div>
+                @empty
+                <div class="card-mini">
+                    <img src="{{ asset('assets/images/b03dc7d5-16a5-42ac-a693-115b7676d08d-e1755596675672-400x300.jpg') }}"
                         style="width:100%; border-radius: 12px; height: 180px; object-fit:cover;">
                     <h4>Anand Samaroh</h4><a href="#">Read More</a>
                 </div>
@@ -417,8 +400,9 @@
                     <h4>Rajat Jayanti Samaroh 2016</h4>
                     <a href="#">Read More</a>
                 </div>
+                @endforelse
             </div>
-            <div style="text-align: center; margin-top: 40px;"><a href="#" class="btn-primary">Show More</a>
+            <div style="text-align: center; margin-top: 40px;"><a href="{{ route('events') }}" class="btn-primary">Show More</a>
             </div>
         </div>
     </section>
@@ -431,17 +415,19 @@
                     <div class="section-title" style="margin-bottom: 20px;">
                         <h2>JOBS</h2>
                     </div>
-                    <div class="card-mini"><a href="#"><strong>UP Police SI Recruitment 2025</strong></a>
-                        <div>Apply for 4543 Sub Inspector Posts</div>
-                    </div>
-                    <div class="card-mini"><a href="#"><strong>BSF HC RO / RM Recruitment 2025</strong></a>
-                    </div>
-                    <div class="card-mini"><a href="#"><strong>IBPS Clerk 15th Recruitment 2025</strong></a>
-                    </div>
-                    <div class="card-mini"><a href="#"><strong>SBI Clerk Recruitment 2025</strong></a></div>
-                    <div class="card-mini"><a href="#"><strong>UKSSSC Various Post Apply Online</strong></a>
-                    </div>
-                    <a href="#" class="btn-outline" style="margin-top: 20px;">More Jobs →</a>
+                    @forelse($jobListings as $job)
+                        <div class="card-mini">
+                            <a href="{{ $job->link_type === 'internal' ? route('job.show', $job->id) : $job->link }}" @if($job->link_type === 'external') target="_blank" @endif>
+                                <strong>{{ $job->title }}</strong>
+                            </a>
+                            @if($job->description)
+                                <div>{{ Str::limit(strip_tags($job->description), 60) }}</div>
+                            @endif
+                        </div>
+                    @empty
+                        <div class="card-mini text-muted">No jobs available at the moment.</div>
+                    @endforelse
+                    <a href="{{ route('job') }}" class="btn-outline" style="margin-top: 20px;">More Jobs →</a>
                 </div>
                 <div>
                     <div class="section-title" style="margin-bottom: 20px;">
@@ -466,19 +452,13 @@
                 <h2>Gallery</h2>
             </div>
             <div class="gallery-grid">
-                <img src="{{ asset('assets/images/IMG-20250826-WA0008.jpg') }}" alt="Gallery">
-
-                <img src="{{ asset('assets/images/IMG-20250826-WA0005.jpg') }}" alt="Gallery">
-
-                <img src="{{ asset('assets/images/IMG-20250826-WA0004.jpg') }}" alt="Gallery">
-
-                <img src="{{ asset('assets/images/IMG-20250826-WA0003.jpg') }}" alt="Gallery">
-
-                <img src="{{ asset('assets/images/IMG-20250826-WA0007.jpg') }}" alt="Gallery">
-
-                <img src="{{ asset('assets/images/IMG-20250826-WA0006.jpg') }}" alt="Gallery">
+                @forelse($galleryImages as $image)
+                    <img src="{{ asset($image->image_path) }}" alt="{{ $image->title ?? 'Gallery Image' }}">
+                @empty
+                    <p class="text-muted text-center w-100" style="grid-column: 1 / -1; padding: 20px;">No gallery images found.</p>
+                @endforelse
             </div>
-            <div style="text-align: center; margin-top: 40px;"><a href="#" class="btn-primary">Show More</a>
+            <div style="text-align: center; margin-top: 40px;"><a href="{{ route('gallery') }}" class="btn-primary">Show More</a>
             </div>
         </div>
     </section>

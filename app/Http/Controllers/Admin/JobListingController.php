@@ -26,13 +26,18 @@ class JobListingController extends Controller
         $request->validate([
             'job_category_id' => 'required|exists:job_categories,id',
             'title' => 'required|string|max:255',
-            'link' => 'nullable|url|max:255',
+            'link_type' => 'required|in:external,internal',
+            'link' => 'nullable|required_if:link_type,external|url|max:255',
+            'description' => 'nullable|required_if:link_type,internal|string',
         ]);
 
         JobListing::create([
             'job_category_id' => $request->job_category_id,
             'title' => $request->title,
-            'link' => $request->link,
+            'link_type' => $request->link_type,
+            'link' => $request->link_type === 'external' ? $request->link : null,
+            'description' => $request->link_type === 'internal' ? $request->description : null,
+            'show_apply' => $request->link_type === 'internal' && $request->has('show_apply'),
             'is_featured' => $request->has('is_featured'),
             'status' => $request->has('status'),
         ]);
@@ -51,13 +56,18 @@ class JobListingController extends Controller
         $request->validate([
             'job_category_id' => 'required|exists:job_categories,id',
             'title' => 'required|string|max:255',
-            'link' => 'nullable|url|max:255',
+            'link_type' => 'required|in:external,internal',
+            'link' => 'nullable|required_if:link_type,external|url|max:255',
+            'description' => 'nullable|required_if:link_type,internal|string',
         ]);
 
         $jobListing->update([
             'job_category_id' => $request->job_category_id,
             'title' => $request->title,
-            'link' => $request->link,
+            'link_type' => $request->link_type,
+            'link' => $request->link_type === 'external' ? $request->link : null,
+            'description' => $request->link_type === 'internal' ? $request->description : null,
+            'show_apply' => $request->link_type === 'internal' && $request->has('show_apply'),
             'is_featured' => $request->has('is_featured'),
             'status' => $request->has('status'),
         ]);

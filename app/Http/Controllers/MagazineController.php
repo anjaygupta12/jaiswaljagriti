@@ -15,28 +15,31 @@ class MagazineController extends Controller
 
     public function show(Magazine $magazine)
     {
-        // Free magazine or no plan assigned — open for everyone
-        if ($magazine->isFree()) {
-            $filePath = public_path($magazine->pdf_file);
-            if (!file_exists($filePath)) abort(404, 'PDF file not found.');
-            return response()->file($filePath, [
-                'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="' . $magazine->slug . '.pdf"',
-            ]);
-        }
+        $oldFromDate = \App\Models\Setting::getVal('magazine_old_from_date');
+        $isOld = $oldFromDate && $magazine->magazine_date && ($magazine->magazine_date < $oldFromDate);
 
-        // Subscription-based: check if user is logged in & has active plan
-        if (!auth()->check()) {
-            return view('magazines.restricted', compact('magazine'));
-        }
+        if ($isOld) {
+            // Old magazine: show free but login is required
+            if (!auth()->check()) {
+                return view('magazines.restricted', compact('magazine', 'isOld'));
+            }
+            $hasAccess = true;
+        } else {
+            // New magazine: show for all patrika subscription users (or admin)
+            if (!auth()->check()) {
+                return view('magazines.restricted', compact('magazine', 'isOld'));
+            }
 
-        $hasAccess = auth()->user()->subscriptions()
-            ->where('status', 'approved')
-            ->where('plan_id', $magazine->plan_id)
-            ->exists();
+            $hasAccess = auth()->user()->is_admin == 1 || auth()->user()->subscriptions()
+                ->where('status', 'approved')
+                ->whereHas('plan', function($q) {
+                    $q->where('type', 'patrika');
+                })
+                ->exists();
+        }
 
         if (!$hasAccess) {
-            return view('magazines.restricted', compact('magazine'));
+            return view('magazines.restricted', compact('magazine', 'isOld'));
         }
 
         // Serve the PDF through Laravel

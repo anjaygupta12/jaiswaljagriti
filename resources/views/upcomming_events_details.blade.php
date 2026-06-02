@@ -31,7 +31,7 @@
                         <ul class="entry-meta meta-light-color">
                             <li><i class="far fa-calendar-alt"></i>{{ \Carbon\Carbon::parse($event->event_date)->format('F d, Y') }}</li>
                             <li class="post-author"><i class="far fa-user"></i>by <a href="#" title="Posts by {{ $event->author }}" rel="author">{{ $event->author }}</a></li>
-                            <li><i class="far fa-comments"></i><span class="comment-number">{{ $comments->count() }}</span> Comments</li>
+
                             <li><i class="fas fa-signal"></i><span class="meta-views meta-item"><span class="meta-views meta-item rising"><span class="view-number">{{ number_format($event->views) }}</span> Views</span></span></li>
                         </ul>
                     </div>
@@ -70,49 +70,25 @@
                                 </div>
                             </div>
 
+
+
                             <!-- Comments Section -->
-                            <div id="comments" class="comments-area mt-5">
-                                <h4 class="comments-title mb-4">{{ $comments->count() }} Comments</h4>
-                                <ul class="comment-list list-unstyled">
-                                    @foreach($comments as $comment)
-                                    <li class="comment mb-4 border-bottom pb-3">
-                                        <div class="comment-body d-flex">
-                                            <div class="comment-avatar mr-3">
-                                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                                                    <i class="fas fa-user text-muted"></i>
+                            @if($event->images->count() > 0)
+                                <div class="event-gallery mt-5">
+                                    <h4 class="gallery-title mb-4">Event Gallery</h4>
+                                    <div class="row">
+                                        @foreach($event->images as $image)
+                                            <div class="col-md-4 col-6 mb-4">
+                                                <div class="gallery-item overflow-hidden rounded shadow-sm">
+                                                    <a href="{{ asset($image->image_path) }}" class="gallery-popup">
+                                                        <img src="{{ asset($image->image_path) }}" alt="Event Image" class="img-fluid w-100" style="height: 200px; object-fit: cover; transition: 0.3s;">
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <div class="comment-content">
-                                                <h6 class="mb-1 font-weight-bold">{{ $comment->name }}</h6>
-                                                <small class="text-muted d-block mb-2">{{ $comment->created_at->format('M d, Y') }}</small>
-                                                <p class="mb-0">{{ $comment->content }}</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                                </ul>
-
-                                <div id="respond" class="comment-respond mt-5">
-                                    <h4 id="reply-title" class="comment-reply-title mb-4">Leave a Reply</h4>
-                                    <form action="{{ route('comments.store', ['type' => 'event', 'id' => $event->id]) }}" method="post" id="commentform" class="comment-form">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-6 form-group">
-                                                <input name="name" type="text" class="form-control" placeholder="Name *" required>
-                                            </div>
-                                            <div class="col-md-6 form-group">
-                                                <input name="email" type="email" class="form-control" placeholder="Email *" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea id="comment" name="content" required placeholder="Comment *" class="textarea form-control" rows="5"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Post Comment">
-                                        </div>
-                                    </form>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <div class="magazines-slider-container mt-5">
                                 <div class="section-title d-flex justify-content-between align-items-center mb-4">
@@ -203,7 +179,7 @@
                             <div class="xs_social_counter_widget ">
                                 <ul class="xs_counter_url wslu-style-2 wslu-counter-line-shaped wslu-counter-fill-colored wslu-counter-space wslu-none wslu-theme-font-yes list-unstyled">
                                     <li class="xs-counter-li facebook mb-2">
-                                        <a href="http://www.facebook.com/" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
+                                        <a href="{{ \App\Models\Setting::getVal('footer_facebook', '#') }}" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
                                             <div class="xs-social-icon mr-3">
                                                 <span class="met-social met-social-facebook"><i class="fab fa-facebook-f"></i></span>
                                             </div>
@@ -212,7 +188,7 @@
                                         </a>
                                     </li>
                                     <li class="xs-counter-li twitter mb-2">
-                                        <a href="http://twitter.com/" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
+                                        <a href="{{ \App\Models\Setting::getVal('footer_twitter', '#') }}" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
                                             <div class="xs-social-icon mr-3">
                                                 <span class="met-social met-social-twitter"><i class="fab fa-twitter"></i></span>
                                             </div>
@@ -221,7 +197,7 @@
                                         </a>
                                     </li>
                                     <li class="xs-counter-li instagram mb-2">
-                                        <a href="http://instagram.com/" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
+                                        <a href="{{ \App\Models\Setting::getVal('footer_instagram', '#') }}" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
                                             <div class="xs-social-icon mr-3">
                                                 <span class="met-social met-social-instagram"><i class="fab fa-instagram"></i></span>
                                             </div>
@@ -230,7 +206,7 @@
                                         </a>
                                     </li>
                                     <li class="xs-counter-li youtube mb-2">
-                                        <a href="https://youtube.com/" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
+                                        <a href="{{ \App\Models\Setting::getVal('footer_youtube', '#') }}" target="_blank" class="d-flex align-items-center text-dark text-decoration-none">
                                             <div class="xs-social-icon mr-3">
                                                 <span class="met-social met-social-youtube"><i class="fab fa-youtube"></i></span>
                                             </div>
@@ -276,6 +252,15 @@
         overflow: hidden;
         padding-bottom: 30px;
     }
+    
+    /* Gallery Hover Effects */
+    .gallery-item img:hover {
+        transform: scale(1.05);
+    }
+    .gallery-item {
+        cursor: pointer;
+        background: #f8f9fa;
+    }
 </style>
 @endpush
 
@@ -308,6 +293,19 @@
             });
         }
         initMagazineSlider();
+
+        // Gallery Popup
+        $('.gallery-popup').magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 300,
+                easing: 'ease-in-out'
+            }
+        });
     });
 </script>
 @endpush
